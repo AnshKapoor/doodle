@@ -98,6 +98,12 @@ function getDetails($url) {
 	echo $url . "Error";
 	}
 	$imageArray = $parser->getImages();
+	foreach ($imageArray as $image) {
+		$src = $image->getAttribute("src");
+		$title = $image->getAttribute("title");
+		$alt = $image->getAttribute("alt");
+
+	}
 }
 
 function followLinks($url) {
