@@ -5,6 +5,15 @@ include("classes/DomDocumentParser.php");
 $alreadyCrawled = array();
 $crawling = array();
 
+function linkExists($url) {
+	global $con;
+
+	$query = $con->prepare("SELECT * FROM sites WHERE url = :url");
+    $query->bindParam(":url", $url);
+	$query->execute();
+    return  $query->rowCount()!=0;
+}
+
 function insertLink($url, $title, $description, $keywords) {
 	global $con;
 
@@ -79,9 +88,15 @@ function getDetails($url) {
 	$description = str_replace("\n", "", $description);
 	$keywords = str_replace("\n", "", $keywords);
 
-
-	insertLink($url, $title, $description, $keywords);
-    echo $url;
+    if(linkExists($url)){
+		echo "The given url exists";
+	}
+	else if(insertLink($url, $title, $description, $keywords)){
+		echo "Success";
+	}
+	else{
+	echo $url . "Error";
+	}
 }
 
 function followLinks($url) {
