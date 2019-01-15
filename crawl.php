@@ -97,6 +97,7 @@ function getDetails($url) {
 	else{
 	echo $url . "Error";
 	}
+	$imageArray = $parser->getImages();
 }
 
 function followLinks($url) {
