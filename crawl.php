@@ -4,6 +4,7 @@ include("classes/DomDocumentParser.php");
 
 $alreadyCrawled = array();
 $crawling = array();
+$alreadyFoundImages = array();
 
 function linkExists($url) {
 	global $con;
@@ -102,7 +103,13 @@ function getDetails($url) {
 		$src = $image->getAttribute("src");
 		$title = $image->getAttribute("title");
 		$alt = $image->getAttribute("alt");
-
+		if(!$title && !$alt){
+			continue;
+		}
+		$src = createLink($src,$url);
+		if(!in_array($src,$alreadyFoundImages))
+		   $alreadyFoundImages[] = $src;
+		   // Insert the Images 
 	}
 }
 
