@@ -92,7 +92,8 @@ $type = isset($_GET["type"]) ? $_GET["type"] : "sites";
 			<?php
 			$resultsProvider = new SiteResultsProvider($con);
 
-			echo $resultsProvider->getNumResults($term);
+			$numResults = $resultsProvider->getNumResults($term);
+			echo "<p class='resultsCount'>$numResults results Found</p>";
 			?>
 
 
