@@ -10,9 +10,11 @@ function linkExists($url) {
 	global $con;
 
 	$query = $con->prepare("SELECT * FROM sites WHERE url = :url");
-    $query->bindParam(":url", $url);
+
+	$query->bindParam(":url", $url);
 	$query->execute();
-    return  $query->rowCount()!=0;
+
+	return $query->rowCount() != 0;
 }
 
 function insertLink($url, $title, $description, $keywords) {
@@ -28,10 +30,11 @@ function insertLink($url, $title, $description, $keywords) {
 
 	return $query->execute();
 }
+
 function insertImage($url, $src, $alt, $title) {
 	global $con;
 
-	$query = $con->prepare("INSERT INTO sites(siteUrl,imageUrl,alt,title)
+	$query = $con->prepare("INSERT INTO images(siteUrl, imageUrl, alt, title)
 							VALUES(:siteUrl, :imageUrl, :alt, :title)");
 
 	$query->bindParam(":siteUrl", $url);
@@ -39,7 +42,7 @@ function insertImage($url, $src, $alt, $title) {
 	$query->bindParam(":alt", $alt);
 	$query->bindParam(":title", $title);
 
-	 $query->execute();
+	return $query->execute();
 }
 
 function createLink($src, $url) {
@@ -67,7 +70,9 @@ function createLink($src, $url) {
 }
 
 function getDetails($url) {
-     global $alreadyFoundImages;
+
+	global $alreadyFoundImages;
+
 	$parser = new DomDocumentParser($url);
 
 	$titleArray = $parser->getTitleTags();
@@ -102,28 +107,38 @@ function getDetails($url) {
 	$description = str_replace("\n", "", $description);
 	$keywords = str_replace("\n", "", $keywords);
 
-    if(linkExists($url)){
-		echo "The given url exists";
+
+	if(linkExists($url)) {
+		echo "$url already exists<br>";
 	}
-	else if(insertLink($url, $title, $description, $keywords)){
-		echo "Success";
+	else if(insertLink($url, $title, $description, $keywords)) {
+		echo "SUCCESS: $url<br>";
 	}
-	else{
-	echo $url . "Error";
+	else {
+		echo "ERROR: Failed to insert $url<br>";
 	}
+
 	$imageArray = $parser->getImages();
-	foreach ($imageArray as $image) {
+	foreach($imageArray as $image) {
 		$src = $image->getAttribute("src");
-		$title = $image->getAttribute("title");
 		$alt = $image->getAttribute("alt");
-		if(!$title && !$alt){
+		$title = $image->getAttribute("title");
+
+		if(!$title && !$alt) {
 			continue;
 		}
-		$src = createLink($src,$url);
-		if(!in_array($src,$alreadyFoundImages))
-		   $alreadyFoundImages[] = $src;
-		   insertImage($url, $src, $alt, $title);
+
+		$src = createLink($src, $url);
+
+		if(!in_array($src, $alreadyFoundImages)) {
+			$alreadyFoundImages[] = $src;
+
+			insertImage($url, $src, $alt, $title);
+		}
+
 	}
+
+
 }
 
 function followLinks($url) {
@@ -155,8 +170,6 @@ function followLinks($url) {
 
 			getDetails($href);
 		}
-		
-
 
 	}
 
@@ -168,6 +181,6 @@ function followLinks($url) {
 
 }
 
-$startUrl = "http://www.youtube.com";
+$startUrl = "http://www.reecekenney.com";
 followLinks($startUrl);
 ?>

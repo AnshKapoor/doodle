@@ -2,14 +2,14 @@
 include("config.php");
 include("classes/SiteResultsProvider.php");
 
-	if(isset($_GET["term"])) {
-		$term = $_GET["term"];
-	}
-	else {
-		exit("You must enter a search term");
-	}
+if(isset($_GET["term"])) {
+	$term = $_GET["term"];
+}
+else {
+	exit("You must enter a search term");
+}
 
-	$type = isset($_GET["type"]) ? $_GET["type"] : "sites";
+$type = isset($_GET["type"]) ? $_GET["type"] : "sites";
 
 
 	
@@ -76,15 +76,30 @@ include("classes/SiteResultsProvider.php");
 
 
 			</div>
+		</div>
 
+
+
+
+
+
+
+
+
+
+		<div class="mainResultsSection">
+
+			<?php
+			$resultsProvider = new SiteResultsProvider($con);
+
+			echo $resultsProvider->getNumResults($term);
+			?>
 
 
 		</div>
-		<div class="mainResultsSection">
-		 <?php
-		 $resultsProvider = new SiteResultsProvider($con);
-		 echo $resultsProvider->getNumResults($term);
-		 ?>
+
+
+
 	</div>
 
 </body>
