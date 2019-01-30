@@ -10,7 +10,7 @@ else {
 }
 
 $type = isset($_GET["type"]) ? $_GET["type"] : "sites";
-
+$page = isset($_GET["page"]) ? $_GET["page"] : 1;
 
 	
 ?>
@@ -43,7 +43,7 @@ $type = isset($_GET["type"]) ? $_GET["type"] : "sites";
 
 						<div class="searchBarContainer">
 
-							<input class="searchBox" type="text" name="term">
+							<input class="searchBox" type="text" name="term" value = "<?php echo $term; ?>">
 							<button class="searchButton">
 								<img src="assets/images/icons/search.png">
 							</button>
@@ -77,21 +77,11 @@ $type = isset($_GET["type"]) ? $_GET["type"] : "sites";
 
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-
-
 		<div class="mainResultsSection">
 
 			<?php
 			$resultsProvider = new SiteResultsProvider($con);
-
+            $pageLimit = 20;
 			$numResults = $resultsProvider->getNumResults($term);
 			echo "<p class='resultsCount'>$numResults results Found</p>";
 			echo $resultsProvider->getResultsHtml(1,20,$term);
