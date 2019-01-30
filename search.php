@@ -84,13 +84,22 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
             $pageLimit = 20;
 			$numResults = $resultsProvider->getNumResults($term);
 			echo "<p class='resultsCount'>$numResults results Found</p>";
-			echo $resultsProvider->getResultsHtml(1,20,$term);
+			echo $resultsProvider->getResultsHtml($page,$pageLimit,$term);
 			?>
 
 
 		</div>
 
-
+      <div class="paginationContainer">
+	  <div class="pageButtons">
+	             <div class="pageNumberContainer">
+				   <img src = "assets/images/pageStart.png">
+				 </div>
+				 <div class="pageNumberContainer">
+				   <img src = "assets/images/pageEnd.png">
+				 </div>
+		 </div>
+	  </div>
 
 	</div>
 
