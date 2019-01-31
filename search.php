@@ -81,10 +81,10 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 
 			<?php
 			$resultsProvider = new SiteResultsProvider($con);
-            $pageLimit = 20;
+            $pageSize = 20;
 			$numResults = $resultsProvider->getNumResults($term);
 			echo "<p class='resultsCount'>$numResults results Found</p>";
-			echo $resultsProvider->getResultsHtml($page,$pageLimit,$term);
+			echo $resultsProvider->getResultsHtml($page,$pageSize,$term);
 			?>
 
 
@@ -96,8 +96,16 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 				   <img src = "assets/images/pageStart.png">
 				 </div>
 				 <?php
-				 $currentPage = 1;
-				 $pagesLeft  =10;
+				 $pagesToShow = 10;
+				 $numPages = ceil($numResults/$pageSize);
+				 $pagesLeft= min($pagesToShow,$numPages);
+				 $currentPage =$page - floor($pagesToShow/2);
+				 if($currentPage<1){
+					 $currentPage = 1;
+				 }
+				 if($currentPage+$pagesLeft>$numPages+1){
+					 $currentPage = $numPages-$pagesLeft+1;
+				 }
 				 while($pagesLeft!=0){
 					 if($currentPage==$page){
 						echo "<div class='pageNumberContainer'>
