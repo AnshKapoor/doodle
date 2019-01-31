@@ -211,6 +211,12 @@ body {
 .pageNumberContainer img{
 	height:37px;
 }
+.pageNumberContainer{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	text-decoration: none;
+}
 
 
 
