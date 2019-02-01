@@ -181,6 +181,6 @@ function followLinks($url) {
 
 }
 
-$startUrl = "http://www.enf-cmnf.com";
+$startUrl = "https://gadgets.ndtv.com/news";
 followLinks($startUrl);
 ?>
