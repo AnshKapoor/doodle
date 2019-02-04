@@ -59,7 +59,7 @@ class ImageResultsProvider {
 								<a href = '$imageUrl'>
 									<script>
 									$(document).ready(function(){
-										loadImage(\"$imageUrl\");
+										loadImage(\"$imageUrl\",\"image$count\");
 									});
 									</script>
 									 <span class='details'>$displayText</span>

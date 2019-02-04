@@ -1,3 +1,4 @@
+var timer;
 $(document).ready(function(){
     $(".result").on("click",function(){
      var url = $(this).attr("href");
@@ -8,6 +9,9 @@ $(document).ready(function(){
      increaseLinkClicks(id,url);
     });
     var grid = $(".imageResults");
+    grid.on("layoutComplete",function(){
+        $(".gridItem img").css("visibility","visible");
+    });
     grid.masonry({
         itemSelector:".gridItem",
         columnWidth:200,
@@ -19,8 +23,16 @@ function loadImage(src){
     var image = $("<img>");
     image.on("load",function(){
         $("."+className+"a").append(image);
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            $(".imageResults").masonry();
+        },500);
+     
     });
-    image.on("error",function(){});
+    image.on("error",function(){
+     $("."+className).remove();
+     $.post("ajax/setBroken.php",{src:src});
+    });
     image.attr("src",src);
 
 }
