@@ -146,6 +146,7 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 	  </div>
 
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
    <script type = "text/javascript" src = "assets/js/script.js"></script>
 </body>
 </html>

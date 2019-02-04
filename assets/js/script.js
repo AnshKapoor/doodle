@@ -7,6 +7,13 @@ $(document).ready(function(){
      }
      increaseLinkClicks(id,url);
     });
+    var grid = $(".imageResults");
+    grid.masonry({
+        itemSelector:".gridItem",
+        columnWidth:200,
+        gutter:5,
+        isInitLayout:false
+    });
 });
 function increaseLinkClicks(linkId,url){
 $.post("ajax/updateLinkCount.php",{linkId:linkId}).done(function(result){
