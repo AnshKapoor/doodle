@@ -15,6 +15,15 @@ $(document).ready(function(){
         isInitLayout:false
     });
 });
+function loadImage(src){
+    var image = $("<img>");
+    image.on("load",function(){
+        $("."+className+"a").append(image);
+    });
+    image.on("error",function(){});
+    image.attr("src",src);
+
+}
 function increaseLinkClicks(linkId,url){
 $.post("ajax/updateLinkCount.php",{linkId:linkId}).done(function(result){
     if(result!=""){
