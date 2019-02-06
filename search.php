@@ -18,6 +18,7 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 <html>
 <head>
 	<title>Welcome to Doodle</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css" />
     <script
    src="https://code.jquery.com/jquery-3.3.1.min.js"
    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -146,6 +147,7 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 	  </div>
 
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
    <script type = "text/javascript" src = "assets/js/script.js"></script>
 </body>
