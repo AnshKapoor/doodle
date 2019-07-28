@@ -109,7 +109,7 @@ function getDetails($url) {
 
 
 	if(linkExists($url)) {
-		echo "$url already exists<br>";
+		echo "$url already exists in database <br>";
 	}
 	else if(insertLink($url, $title, $description, $keywords)) {
 		echo "SUCCESS: $url<br>";
@@ -152,6 +152,7 @@ function followLinks($url) {
 
 	foreach($linkList as $link) {
 		$href = $link->getAttribute("href");
+		echo "Href value $href added <br>";
 
 		if(strpos($href, "#") !== false) {
 			continue;
@@ -181,6 +182,6 @@ function followLinks($url) {
 
 }
 
-$startUrl = "https://gadgets.ndtv.com/news";
-followLinks($startUrl);
+
+//followLinks($startUrl);
 ?>

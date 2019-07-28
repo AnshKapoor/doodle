@@ -1,42 +1,56 @@
-<?php
-function file_get_contents_curl($url)
-{   
-    $ch = curl_init();
+<?php 
+include("crawl.php");
+if(isset($_GET["link"])){
+    $Running = false;
+    $startUrl = $_GET["link"];
+    while(!$Running){
+    followLinks($startUrl);
+    $Running = false;
+    }
+    
 
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-
-    $data = curl_exec($ch);
-    curl_close($ch);
-
-    return $data;
 }
 
-$html = file_get_contents_curl("http://www.zamzar.com/");
-
-//parsing begins here:
-$doc = new DOMDocument();
-@$doc->loadHTML($html);
-$nodes = $doc->getElementsByTagName('title');
-
-//get and display what you need:
-$title = $nodes->item(0)->nodeValue;
-
-$metas = $doc->getElementsByTagName('meta');
-
-for ($i = 0; $i < $metas->length; $i++)
-{
-    $meta = $metas->item($i);
-    if($meta->getAttribute('name') == 'description')
-        $description = $meta->getAttribute('content');
-    if($meta->getAttribute('name') == 'keywords')
-        $keywords = $meta->getAttribute('content');
-}
-
-echo "Title: $title". '<br/><br/>';
-echo "description: $description". '<br/><br/>';
-echo "title: $title". '<br/><br/>';
 
 ?>
+
+
+<html>
+<head> 
+<title> Trainer</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12" style="margin-left:15%;">
+			<img alt="Trainer logo" src="assets/images/trainer.png" width="20%" height="35%" /><br/>
+			<h3>
+				Enter your Website
+			</h3>
+			<form role="form" action="example.php"method="GET">
+				<div class="form-group">
+					 
+					<label for="Website">
+						Website
+					</label>
+					<input type="text" class="form-control" style="width:50%" id="site" name="link" />
+				</div>
+				
+				
+				
+				<button type="submit" class="btn btn-primary">
+					Train
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>
